@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pokemon</title>
+  </head>
+  <body>
+    <div id="container" style="width: 900px; height: auto; margin: auto;"></div>
+  </body>
+  <script type="text/javascript">
+    var output = "";
+    for (var i = 1; i < 152; i++){
+      output += "<img src='http://pokeapi.co/media/img/"+i+".png'>";
+    }
+    document.getElementById('container').innerHTML= output;
+  </script>
+</html>
