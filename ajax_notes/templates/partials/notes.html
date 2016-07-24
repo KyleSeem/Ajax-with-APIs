@@ -1,0 +1,29 @@
+{% for note in notes %}
+  <div class="panel panel-default" style="margin-bottom: 20px;">
+    <div class="panel-heading">
+      <label>{{ note['title'] }}</label>
+      <div style="float:right;">
+      <!-- delete form -->
+        <form id="form_delete" action="/notes/delete/{{ note['id'] }}" method="POST">
+          <input id="description_id" name="desc_id" type="hidden">
+          <button class="btn btn-link">delete</button>
+        </form>
+      </div>
+    </div> <!-- closes panel heading -->
+    <div class="panel-body">{{ note['description'] }}</div>
+    <div class="panel-footer">
+      <button class="btn btn-link" role="button" data-toggle="collapse" data-target="#form_update">update existing note</button>
+    <!-- update form -->
+      <form id="form_update" class="collapse" action="/notes/update/{{ note['id'] }}" method="POST">
+        <div class="form-group">
+          <input id="description_id" name="desc_id" type="hidden">
+          <input type="text" id="update_title" name="update_title" class="form-control" placeholder="Updated Title">
+        </div>
+        <div class="form-group">
+          <textarea id="update_description" name="update_description" class="form-control" rows="3" placeholder="Updated Note"></textarea>
+        </div>
+        <button id="btn_update" class="btn btn-success" type="submit">Submit Update</button>
+      </form>
+    </div> <!-- closes panel footer -->
+  </div>
+{% endfor %}
