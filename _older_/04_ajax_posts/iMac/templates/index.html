@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ajax Posts</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        //pull all posts from database using partials
+        $.get('/index_html', function(res){
+          $('#posts').html(res);
+        });
+
+        $('form').submit(function(){
+          $.post('/new_post', $(this).serialize(), function(res){
+            $('#posts').html(res);
+          });
+          $('form')[0].reset();
+          return false;
+        });
+      });
+    </script>
+    </head>
+    <body>
+      <div class="container" style="width: 800px; margin: auto;">
+        <header>
+          <h1>My Posts</h1>
+        </header>
+        <section id="posts">
+
+        </section>
+
+        <section>
+          <form action="/new_post" method="POST" style="width: 300px; margin-top: 30px;">
+            <div class="form-group">
+              <label>New Post</label>
+              <textarea class="form-control" rows="4" name="new_post"></textarea>
+            </div>
+            <input id="post_it" class="btn btn-primary" type="submit" value="Post It!">
+          </form>
+        </section>
+      </div>
+    </body>
+</html>

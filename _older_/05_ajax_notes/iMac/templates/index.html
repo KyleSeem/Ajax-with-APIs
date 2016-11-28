@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Ajax Notes</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        //pull all notes from database using partials
+        $.get('/index_html', function(res){
+          $('#notes').html(res);
+        });
+
+        // ajax request for new_note form
+        $('#new_note').submit(function(){
+          $.post('/new_note', $(this).serialize(), function(res){
+            $('#notes').html(res);
+          });
+          $('#new_note')[0].reset();
+          return false;
+        });
+
+        // ajax request for update_note form (partials)
+        $('#update_note').submit(function(){
+          $.post('/update_note', $(this).serialize(), function(res){
+            $('#notes').html(res);
+          });
+          return false;
+        });
+
+        // ajax requst for delete_note form (partials)
+        $('#delete_note').submit(function(){
+          $.post('/delete_note', $(this).serialize(), function(res){
+            $('#notes').html(res);
+          });
+          return false;
+        });
+
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container" style="width: 850px; margin: auto;">
+      <header>
+        <h1>Ajax Notes Assignment</h1>
+      </header>
+<!-- this section holds the form -->
+      <aside style="width: 375px; display: inline-block; float: left;">
+        <form id="new_note" action="/new_note" method="POST">
+          <h3>Add Note</h3>
+          <div class="form-group">
+            <input type="text" class="form-control" name="note_title" placeholder="note title">
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" rows="5" name="note_text" placeholder="note text"></textarea>
+          </div>
+          <input id="add_note" class="btn btn-success" type="submit" value="Add Note">
+        </form>
+      </aside>
+<!-- this section holds the notes from the database via partial -->
+      <section style="width: 375px; display: inline-block; float: right;">
+        <h3>My Notes</h3>
+        <div id="notes">
+          <!-- partial here -->
+        </div>
+      </section>
+    </div> <!-- closes container -->
+  </body>
+</html>

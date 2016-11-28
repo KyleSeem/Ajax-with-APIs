@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Quotsy</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="">
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#get_quotes').click(function(){
+          $.get('/index_html', function(res){
+            $('#quotes').html(res);
+          });
+
+          // $.get('/index_json', function(res){
+          //   var htmlStr = "";
+          //   for(var i = 0; i < res.length; i++){
+          //     htmlStr += "<div class='quote'>";
+          //     htmlStr += "<h2>" + res[i].author + "</h2>";
+          //     htmlStr += "<p>" + res[i].quote + "</p>";
+          //     htmlStr += "</div>";
+          //   }
+          //   $('#quotes').html(htmlStr);
+          // }, 'json');
+        });
+      });
+    </script>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Quotsy</h1>
+        <button id="get_quotes" class="btn btn-primary">Get All Quotes</button>
+        <div id="quotes"></div>
+      </div>
+    </body>
+</html>

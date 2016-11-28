@@ -1,0 +1,34 @@
+{% for note in notes %}
+  <article class="well">
+    <label>{{ note['title'] }}</label>
+    <p>{{ note['note'] }}</p>
+
+<!-- update button (toggle) -->
+    <button class="btn btn-primary" role="button" data-toggle="collapse" data-target="#div_update{{ note['id'] }}">Update</button>
+
+<!-- delete form -->
+    <form id="delete_note" action="/delete_note" method="POST" style="display: inline-block;">
+      <input type="hidden" id="delete_id" name="delete_id" value="{{ note['id'] }}"
+      <div class="form-group">
+        <input class="btn btn-danger" type="submit" value="Delete">
+      </div>
+    </form>
+
+<!-- update form (expand toggled by button)-->
+    <div id="div_update{{ note['id'] }}" class="collapse">
+      <form id="update_note" action="/update_note" method="POST" style="display: inline-block;">
+        <div class="form-group">
+          <input type="hidden" id="note_id" name="note_id" value="{{ note['id'] }}">
+        </div>
+        <div class="form-group">
+          <input type="text" id="update_title" name="update_title" class="form-control" value="{{ note['title'] }}">
+        </div>
+        <div class="form-group">
+          <textarea id="update_text" name="update_text" class="form-control"style="width: 335px;">{{ note['note'] }}</textarea>
+        </div>
+        <input class="btn btn-success" type="submit" value="Save Changes">
+      </form>
+      <button class="btn btn-danger" role="button" data-toggle="collapse" data-target="#div_update{{ note['id'] }}" style="float: right; margin-top: -34px;">Cancel</button>
+    </div>
+</article>
+{% endfor %}
